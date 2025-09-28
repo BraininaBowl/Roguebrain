@@ -1,4 +1,4 @@
-const items = {
+const data_items = {
   tree: {
     icon: "⍋",
     /*icon: "/\\",*/
@@ -103,8 +103,9 @@ const items = {
     color: "--bg4",
   },
 };
+const data_items_keys = Object.keys(data_items);
 
-const pois_lut = {
+const data_pois = {
   climbing_tree: {
     id: "climbing_tree",
     req: "tree",
@@ -1475,10 +1476,9 @@ const pois_lut = {
     },
   },
 };
+const data_pois_keys = Object.keys(data_pois);
 
-const pois_lut_keys = Object.keys(pois_lut);
-
-const voices = {
+const data_voices = {
   kid: {
     name: "Excited preschooler you",
   },
@@ -1504,3 +1504,109 @@ const voices = {
     name: "Lost item",
   },
 };
+const data_voices_keys = Object.keys(data_voices);
+const data_chapters = {
+  start: function () {
+    let message = {};
+    switch (player.progress) {
+      case 0:
+        message = {};
+        message.voice = false;
+        message.text =
+          "A gentle breeze flows through the clearing. Somewhere, a bird sings.";
+        addMessage(message);
+        message = {};
+        message.choices = new Array();
+        message.choices[1] = {
+          text: "[Continue]",
+          action: function () {
+            document.querySelector(".mapcell.player").scrollIntoView({
+              behavior: "instant",
+              block: "center",
+              container: "nearest",
+              inline: "center",
+            });
+            document.querySelector(".maplayer").classList.remove("hidden");
+            player.progress = 1;
+            data_chapters.start();
+          },
+        };
+        addMessage(message);
+        break;
+      case 1:
+        message = {};
+        message.voice = false;
+        message.text = "The forest looks very inviting today.";
+        addMessage(message);
+        message = {};
+        message.voice = "romantic";
+        message.text = "It does.";
+        addMessage(message);
+        message = {};
+        message.choices = new Array();
+        message.choices[1] = {
+          text: "Let's go!",
+          action: function () {
+            player.progress = 4;
+            data_chapters.start();
+          },
+        };
+        message.choices[2] = {
+          text: "[Hesitate]",
+          action: function () {
+            player.progress = 2;
+            data_chapters.start();
+          },
+        };
+        addMessage(message);
+        break;
+      case 2:
+        message = {};
+        message.voice = "kid";
+        message.text = "Awwww, come on!";
+        addMessage(message);
+        message = {};
+        message.choices = new Array();
+        message.choices[1] = {
+          text: "Well, all right...",
+          action: function () {
+            player.progress = 4;
+            data_chapters.start();
+          },
+        };
+        message.choices[2] = {
+          text: "No. I'm good here.",
+          action: function () {
+            player.progress = 3;
+            data_chapters.start();
+          },
+        };
+        addMessage(message);
+        break;
+      case 3:
+        message = {};
+        message.voice = false;
+        message.text =
+          "You spend the day by your camp. It's quite nice. The fire is warm.";
+        addMessage(message);
+        message = {};
+        message.choices = new Array();
+        message.choices[1] = {
+          text: "[Continue]",
+          action: function () {
+            restAtCamp();
+          },
+        };
+        addMessage(message);
+        break;
+      case 4:
+        message = {};
+        message.voice = false;
+        message.text = "You get up and head into the forest.";
+        addMessage(message);
+        nextStop();
+        break;
+    }
+  },
+};
+const data_chapters_keys = Object.keys(data_chapters);
