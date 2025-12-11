@@ -155,5 +155,5 @@ function handleGesture() {
 
 window.addEventListener("resize", (event) => {
   updateCamera();
-});
+}); 
 

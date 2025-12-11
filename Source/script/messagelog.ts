@@ -19,7 +19,7 @@ function processMessages() {
 function writeToLog(message) {
   let logcontainer = document.querySelector(".logcontainer");
   let log = document.createElement("div");
-  let header, body, choice, text;
+  let text;
   log.classList.add("log", message.voice);
   if (message.voice && message.voice != "input") {
     let header = document.createElement("div");
